@@ -6,6 +6,7 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 RED = (255, 0, 0)
 
+
 def draw_shape(screen, shape, column_row):
     x_position, y_position = column_row
     x_position = x_position * 200
@@ -52,15 +53,18 @@ def fill_rectangle(screen, column_row):
     screen.fill((100, 100, 100), (x + 1, y + 1, 198, 198))
     pygame.display.update()
 
+
 def clear_board(screen):
     for i in range(0, 3):
         for j in range(0, 3):
             fill_rectangle(screen, (i, j))
 
+
 def draw_board(board, screen):
     for coordinates, value in board.items():
         fill_rectangle(screen, coordinates)
         draw_shape(screen, value, coordinates)
+
 
 def write_instructions_01(screen):
     font = pygame.font.Font(None, 50)
@@ -68,8 +72,30 @@ def write_instructions_01(screen):
     screen.blit(img, (25, 675))
     pygame.display.update()
 
+
 def clear_instructions(screen):
     screen.fill((100, 100, 100), (0, 601, 600, 199))
+    pygame.display.update()
+
+
+def loosing_instructions(screen):
+    clear_instructions(screen)
+    font = pygame.font.Font(None, 50)
+    img = font.render('You loose', True, BLACK)
+    screen.blit(img, (25, 675))
+    img = font.render('Press r to restart q to quit', True, BLACK)
+    screen.blit(img, (25, 725))
+    pygame.display.update()
+
+def winning_instructions(screen, winning_streak):
+    clear_instructions(screen)
+    font = pygame.font.Font(None, 50)
+    img = font.render('You win', True, BLACK)
+    screen.blit(img, (25, 625))
+    img = font.render(f'You have won {str(winning_streak)} games in a row ', True, BLACK)
+    screen.blit(img, (25, 675))
+    img = font.render('Press r to restart q to quit', True, BLACK)
+    screen.blit(img, (25, 725))
     pygame.display.update()
 
 def write_instructions_02(screen):
@@ -80,6 +106,7 @@ def write_instructions_02(screen):
     screen.blit(img, (25, 725))
     pygame.display.update()
 
+
 def right_or_wrong(screen, right, column_row):
     column, row = column_row
     column = column * 200
@@ -89,5 +116,5 @@ def right_or_wrong(screen, right, column_row):
         color = [0, 100, 0]
     else:
         color = [100, 0, 0]
-    pygame.draw.rect(screen, tuple(color), (column + 1, row + 1, 198, 198), 4)
+    pygame.draw.rect(screen, tuple(color), (column + 5, row + 5, 190, 190), 5)
     pygame.display.update()
